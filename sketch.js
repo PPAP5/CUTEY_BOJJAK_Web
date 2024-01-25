@@ -18,13 +18,22 @@ function setup() {
 function draw() {
   background(0);
 
+  let mouseOverPixel = false;
+
   for (let p of pixels) {
     p.show();
     p.move();
-    
-    if ((p.tx+5 >= mouseX && p.tx-5 <= mouseX) && (p.ty+5 >= mouseY && p.ty-5 <= mouseY)) {
-      p.bounceRandomly()
+
+    if ((p.tx+15 >= mouseX && p.tx-15 <= mouseX) && (p.ty+15 >= mouseY && p.ty-15 <= mouseY)) {
+      mouseOverPixel = true;
+      p.bounceRandomly();
     }
-    
+  }
+
+
+  if (!mouseOverPixel) {
+    for (let p of pixels) {
+      p.returnToOriginal();
+    }
   }
 }
