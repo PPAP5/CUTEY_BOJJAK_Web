@@ -6,7 +6,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(4000, 4000);
+  createCanvas(400, 400);
 
   for (let i = 0; i < img.width; ++i) {
     for (let j = 0; j < img.height; ++j) {
@@ -18,13 +18,22 @@ function setup() {
 function draw() {
   background(0);
 
+  let mouseOverPixel = false;
+
   for (let p of pixels) {
     p.show();
     p.move();
-    
+
     if ((p.tx+5 >= mouseX && p.tx-5 <= mouseX) && (p.ty+5 >= mouseY && p.ty-5 <= mouseY)) {
-      p.bounceRandomly()
+      mouseOverPixel = true;
+      p.bounceRandomly();
     }
-    
+  }
+
+
+  if (!mouseOverPixel) {
+    for (let p of pixels) {
+      p.returnToOriginal();
+    }
   }
 }

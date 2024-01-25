@@ -1,12 +1,12 @@
 class Pixel {
   constructor(colors, x, y) {
-    this.colors = colors;
-    this.x = x;
-    this.y = y;
+    this.colors = colors; 
+    this.x = x; 
+    this.y = y; 
     this.sx = random(400); 
-    this.sy = random(400);
-    this.tx = x * 8; 
-    this.ty = y * 8;
+    this.sy = random(400); 
+    this.tx = x * 5; 
+    this.ty = y * 5; 
     this.speed = random(0.08, 0.1); 
   }
 
@@ -26,5 +26,11 @@ class Pixel {
     let distance = random(10, 50); 
     this.tx = this.sx + cos(angle) * distance;
     this.ty = this.sy + sin(angle) * distance;
+  }
+
+
+  returnToOriginal() {
+    this.tx = this.x * 5;
+    this.ty = this.y * 5;
   }
 }
