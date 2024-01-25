@@ -5,8 +5,8 @@ class Pixel {
     this.y = y;
     this.sx = random(400); 
     this.sy = random(400);
-    this.tx = x * 5; 
-    this.ty = y * 5;
+    this.tx = x * 8; 
+    this.ty = y * 8;
     this.speed = random(0.08, 0.1); 
   }
 
