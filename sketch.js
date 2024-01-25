@@ -6,7 +6,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(4000, 4000);
 
   for (let i = 0; i < img.width; ++i) {
     for (let j = 0; j < img.height; ++j) {
