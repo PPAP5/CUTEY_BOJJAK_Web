@@ -6,6 +6,7 @@ function preload() {
 }
 
 function setup() {
+  frameRate(30)
   createCanvas(400, 400);
 
   for (let i = 0; i < img.width; ++i) {
