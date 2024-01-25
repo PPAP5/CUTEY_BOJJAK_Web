@@ -24,7 +24,7 @@ function draw() {
     p.show();
     p.move();
 
-    if ((p.tx+15 >= mouseX && p.tx-15 <= mouseX) && (p.ty+15 >= mouseY && p.ty-15 <= mouseY)) {
+    if ((p.tx+10 >= mouseX && p.tx-10 <= mouseX) && (p.ty+10 >= mouseY && p.ty-10 <= mouseY)) {
       mouseOverPixel = true;
       p.bounceRandomly();
     }
