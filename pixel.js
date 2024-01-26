@@ -1,38 +1,39 @@
-let img; // 이미지 변수 선언
-let pixels = []; // 픽셀 배열 선언
+class Pixel {
+  constructor(colors, x, y) {
+    this.colors = colors; // 픽셀의 색상
+    this.x = x * 4.25; // 초기 x 위치
+    this.y = y * 4.25; // 초기 y 위치
+    this.sx = random(400); // 시작 x 좌표
+    this.sy = random(400); // 시작 y 좌표
+    this.tx = x * 2; // 목표 x 좌표
+    this.ty = y * 2; // 목표 y 좌표
+    this.speed = random(0.08, 0.1); // 이동 속도
+    this.scaleFactor = 8; // 크기 확대를 위한 scaleFactor 설정
+  }
 
-function preload() {
-    img = loadImage('홍진호.png'); // 이미지 불러오기
-}
+  show() {
+    noStroke(); // 선 없음
+    fill(this.colors); // 색상 채우기
+    push(); // 현재의 변환 상태를 저장
+    scale(this.scaleFactor); // scaleFactor에 따라 크기 조절
+    ellipse(this.sx / this.scaleFactor, this.sy / this.scaleFactor, 1, 1); // 타원 그리기
+    pop(); // 이전의 변환 상태로 복원
+  }
 
-function setup() {
-    createCanvas(4000, 4000); // 캔버스 생성
+  move() {
+    this.sx = lerp(this.sx, this.tx, this.speed); // x 좌표 이동
+    this.sy = lerp(this.sy, this.ty, this.speed); // y 좌표 이동
+  }
 
-    for (let i = 0; i < img.width; ++i) {
-        for (let j = 0; j < img.height; ++j) {
-            pixels.push(new Pixel(img.get(i, j), i, j)); // 이미지의 각 픽셀을 배열에 추가
-        }
-    }
-}
+  bounceRandomly() {
+    let angle = random(TWO_PI); // 무작위 각도
+    let distance = random(10, 500); // 무작위 거리
+    this.tx = this.sx + cos(angle) * distance; // 새로운 목표 x 좌표
+    this.ty = this.sy + sin(angle) * distance; // 새로운 목표 y 좌표
+  }
 
-function draw() {
-    background(0); // 배경색 설정
-
-    let mouseOverPixel = false;
-
-    for (let p of pixels) {
-        p.show(); // 픽셀 표시
-        p.move(); // 픽셀 이동
-
-        if ((p.tx+10 >= mouseX && p.tx-10 <= mouseX) && (p.ty+10 >= mouseY && p.ty-10 <= mouseY)) {
-            mouseOverPixel = true;
-            p.bounceRandomly(); // 마우스 근처 픽셀 무작위 이동
-        }
-    }
-
-    if (!mouseOverPixel) {
-        for (let p of pixels) {
-            p.returnToOriginal(); // 마우스가 없을 때 원래 위치로 복귀
-        }
-    }
+  returnToOriginal() {
+    this.tx = this.x * 2; // 원래 x 좌표로 되돌리기
+    this.ty = this.y * 2; // 원래 y 좌표로 되돌리기
+  }
 }
