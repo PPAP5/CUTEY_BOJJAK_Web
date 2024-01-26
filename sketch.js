@@ -1,6 +1,7 @@
 let img; // 이미지 변수
 let pixels = []; // 픽셀 배열
 let imgLoaded = false; // 이미지 로딩 상태 플래그
+let r = 20
 
 function setup() {
     createCanvas(windowWidth, windowHeight); // 캔버스 크기 설정
@@ -17,7 +18,7 @@ function draw() {
             p.show();
             p.move();
             // 마우스 근처의 픽셀에 대한 추가 처리
-            if ((p.tx + 10 >= mouseX && p.tx - 10 <= mouseX) && (p.ty + 10 >= mouseY && p.ty - 10 <= mouseY)) {
+            if ((p.tx + r >= mouseX && p.tx - r <= mouseX) && (p.ty + r >= mouseY && p.ty - r <= mouseY)) {
                 p.bounceRandomly();
             } else {
                 p.returnToOriginal();
