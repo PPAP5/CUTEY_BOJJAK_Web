@@ -1,33 +1,52 @@
-let img; // 이미지 변수 선언
-let pixels = []; // 픽셀 배열 선언
-
-function preload() {
-    img = loadImage('홍진호.png'); // 이미지 불러오기
-}
+let img; // 이미지 변수
+let pixels = []; // 픽셀 배열
+let imgLoaded = false; // 이미지 로딩 상태 플래그
 
 function setup() {
-    createCanvas(4000, 4000); // 캔버스 생성
-
-    for (let i = 0; i < img.width; ++i) {
-        for (let j = 0; j < img.height; ++j) {
-            pixels.push(new Pixel(img.get(i, j), i, j)); // 이미지의 각 픽셀을 배열에 추가
-        }
-    }
+    createCanvas(windowWidth, windowHeight); // 캔버스 크기 설정
+    input = createFileInput(handleFiles); // p5.js 파일 입력 생성
+    input.position(0, 0); // 입력 위치 설정
 }
 
 function draw() {
-    background(0); // 배경색 설정
+    background(0);
 
-    let mouseOverPixel = false;
+    if (imgLoaded) {
+        // 이미지가 로드된 경우
+        for (let p of pixels) {
+            p.show();
+            p.move();
+            // 마우스 근처의 픽셀에 대한 추가 처리
+            if ((p.tx + 10 >= mouseX && p.tx - 10 <= mouseX) && (p.ty + 10 >= mouseY && p.ty - 10 <= mouseY)) {
+                p.bounceRandomly();
+            } else {
+                p.returnToOriginal();
+            }
+        }
+    } else {
+        text("이미지를 로드해주세요.", 10, 10); // 이미지 로드 안내 메시지
+    }
+}
 
-    for (let p of pixels) {
-        p.show(); // 픽셀 표시
-        p.move(); // 픽셀 이동
+function handleFiles(file) {
+    if (file.type === 'image') {
+        img = loadImage(file.data, imageLoaded); // 이미지 로드
+    }
+}
 
-        if ((p.tx+10 >= mouseX && p.tx-10 <= mouseX) && (p.ty+10 >= mouseY && p.ty-10 <= mouseY)) {
-            p.bounceRandomly(); // 마우스 근처 픽셀 무작위 이동
-        } else {
-            p.returnToOriginal(); // 마우스가 없을 때 원래 위치로 복귀
+function imageLoaded() {
+    imgLoaded = true;
+    processImage();
+}
+
+function processImage() {
+    pixels = [];
+
+    img.loadPixels();
+    for (let i = 0; i < img.width; i++) {
+        for (let j = 0; j < img.height; j++) {
+            let c = img.get(i, j);
+            pixels.push(new Pixel(c, i, j)); // 'Pixel' 클래스 인스턴스 생성
         }
     }
 }
