@@ -27,7 +27,7 @@ class Pixel {
 
   bounceRandomly() {
     let angle = random(TWO_PI); // 무작위 각도
-    let distance = random(10, 500); // 무작위 거리
+    let distance = random(100, 500); // 무작위 거리
     this.tx = this.sx + cos(angle) * distance; // 새로운 목표 x 좌표
     this.ty = this.sy + sin(angle) * distance; // 새로운 목표 y 좌표
   }
