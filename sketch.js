@@ -25,13 +25,8 @@ function draw() {
         p.move(); // 픽셀 이동
 
         if ((p.tx+10 >= mouseX && p.tx-10 <= mouseX) && (p.ty+10 >= mouseY && p.ty-10 <= mouseY)) {
-            mouseOverPixel = true;
             p.bounceRandomly(); // 마우스 근처 픽셀 무작위 이동
-        }
-    }
-
-    if (!mouseOverPixel) {
-        for (let p of pixels) {
+        } else {
             p.returnToOriginal(); // 마우스가 없을 때 원래 위치로 복귀
         }
     }
