@@ -5,19 +5,19 @@ class Pixel {
     this.y = y * 4.25;
     this.sx = random(400);
     this.sy = random(400);
-    this.tx = x * 2;
+    this.tx = x * 2; 
     this.ty = y * 2;
     this.speed = random(0.08, 0.1);
-    this.scaleFactor = 8; // 추가: 크기 확대를 위한 scaleFactor 설정
+    this.scaleFactor = 8; 
   }
 
   show() {
     noStroke();
     fill(this.colors);
-    push(); // 현재의 변환 상태를 저장
-    scale(this.scaleFactor); // scaleFactor에 따라 크기 조절
+    push(); 
+    scale(this.scaleFactor); 
     ellipse(this.sx / this.scaleFactor, this.sy / this.scaleFactor, 1, 1);
-    pop(); // 이전의 변환 상태로 복원
+    pop(); 
   }
 
   move() {
@@ -33,7 +33,7 @@ class Pixel {
   }
 
   returnToOriginal() {
-    this.tx = this.x * 2; // 원래 크기로 되돌리기
+    this.tx = this.x * 2; 
     this.ty = this.y * 2;
   }
 }
